@@ -2,13 +2,38 @@ import React from 'react'
 class Sumdemo extends React.Component{
     constructor(props){
         super(props)
-        this.state = {}
+        this.state = {errmsg: {} };
     }
     // mydata(e){
     //     this.setState({no1:e.target.value})
     // }
+    doValidation(){
+            const {no1 , no2} = this.state
+            var temperr = {}
+            var isValid = true
+
+            if (!no1){
+                temperr.tt1 = "Enter No1"
+                isValid = false
+            }
+            if(isNaN(no1)){
+                temperr.txt1 = "Enter Only Digits in No1"
+                isValid = false
+            }
+            if (!no2){
+                temperr.txt2 = "Enter No2"
+                isValid = false
+            }
+            this .setState({ errmsg: temperr})
+            return isValid
+        }
 
     doSum(){
+        var ans = this.doValidation()
+        if (ans == true){
+            var c = parseInt(this.state.no1) + parseInt(this.state.no2)
+            this.setState({msg: c })
+        }
         var no1 = parseInt(this.state.txt1)
         var no2 = parseInt(this.state.txt2)
         var c = no1 + no2
